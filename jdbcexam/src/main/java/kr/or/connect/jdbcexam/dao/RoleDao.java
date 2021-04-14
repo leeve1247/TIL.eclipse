@@ -15,6 +15,54 @@ public class RoleDao {
 	private static String dbUser = DB.User();
 	private static String dbpasswd = DB.Passwd();
 	
+	public int addRole(Role role) {
+		int insertCount = 0;
+		
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			
+			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
+			
+			String sql = "INSERT INTO role (role_id, description) VALUES (?,?)";
+			
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, role.getRoleId());
+			ps.setString(2, role.getDescription());
+			
+			insertCount = ps.executeUpdate();
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			//파이널리에 적어서, 뭐든지 무조건 닫아 버린다.
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return insertCount;
+		
+		
+	}
+	
+	
+	
 	public Role getRole(Integer roleId) {
 		Role role = null;
 		Connection conn = null;
@@ -23,7 +71,7 @@ public class RoleDao {
 		
 //		예외처리 시작
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
+			Class.forName("org.mariadb.jdbc.Driver");		
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "SELECT role_id, description FROM role WHERE role_id = ?";
 //			prepareStatement 특징 물음표의 정체? : 이후 setInt와 동기화 되는데, 첫번째 ? 부터 숫자 태그가 붙는다.
@@ -45,7 +93,7 @@ public class RoleDao {
 		//파이널리에 적어서, 뭐든지 무조건 닫아 버린다.
 			if(conn != null) {
 				try {
-					rs.close();
+					conn.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -53,7 +101,7 @@ public class RoleDao {
 			}
 			if(ps != null) {
 				try {
-					rs.close();
+					ps.close();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
