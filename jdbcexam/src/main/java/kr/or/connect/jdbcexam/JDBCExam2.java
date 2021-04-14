@@ -5,7 +5,7 @@ import kr.or.connect.jdbcexam.dto.Role;
 
 public class JDBCExam2 {
 	public static void main(String[] args) {
-		int roleId = 500;
+		int roleId = 501;
 		String description = "CEO";
 		
 		Role role = new Role(roleId, description);
