@@ -6,14 +6,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import kr.or.connect.jdbcexam.db;
+import kr.or.connect.jdbcexam.DB;
 import kr.or.connect.jdbcexam.dto.*;
 
 public class RoleDao {
 	//github 업로드용으로 보안정보 클래스화
-	private static String dburl = db.Url();
-	private static String dbUser = db.User();
-	private static String dbpasswd = db.Passwd();
+	private static String dburl = DB.Url();
+	private static String dbUser = DB.User();
+	private static String dbpasswd = DB.Passwd();
 	
 	public Role getRole(Integer roleId) {
 		Role role = null;
@@ -26,7 +26,7 @@ public class RoleDao {
 			Class.forName("org.mariadb.jdbc.Driver");
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "SELECT role_id, description FROM role WHERE role_id = ?";
-//			물음표의 정체? : 이후 setInt와 동기화 되는데, 첫번째 ? 부터 숫자 태그가 붙는다.
+//			prepareStatement 특징 물음표의 정체? : 이후 setInt와 동기화 되는데, 첫번째 ? 부터 숫자 태그가 붙는다.
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, roleId);
 //			첫번째 물음표에 roleId의 값을 넣는다.
