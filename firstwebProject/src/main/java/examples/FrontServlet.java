@@ -1,7 +1,6 @@
 package examples;
 
 import java.io.IOException;
-import java.util.Random;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
