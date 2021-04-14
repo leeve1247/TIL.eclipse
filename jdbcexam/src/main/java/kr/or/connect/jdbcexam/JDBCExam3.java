@@ -3,16 +3,16 @@ package kr.or.connect.jdbcexam;
 import kr.or.connect.jdbcexam.dao.RoleDao;
 import kr.or.connect.jdbcexam.dto.Role;
 
-public class JDBCExam2 {
+public class JDBCExam3 {
 	public static void main(String[] args) {
 		int roleId = 500;
-		String description = "CEO";
+		String description = "CFO";
 		
 		Role role = new Role(roleId, description);
 		
 		RoleDao dao = new RoleDao();
-		int insertCount = dao.addRole(role);
+		int editCount = dao.editRole(role);
 		
-		System.out.println(insertCount);
+		System.out.println(editCount);
 	}
 }

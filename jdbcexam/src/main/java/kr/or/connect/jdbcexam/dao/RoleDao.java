@@ -14,26 +14,78 @@ public class RoleDao {
 	private static String dburl = DB.Url();
 	private static String dbUser = DB.User();
 	private static String dbpasswd = DB.Passwd();
+	private static String classpath = "org.mariadb.jdbc.Driver";
 	
-	public int addRole(Role role) {
-		int insertCount = 0;
-		
+	
+	public int editRole(Role role) {
+		int updateCount = 0;
 		Connection conn = null;
 		PreparedStatement ps = null;
 		
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");
-			
+			Class.forName(classpath);
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		String sql = "UPDATE role SET description=? WHERE role_id=?";
+		
+		try {
 			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
+			ps = conn.prepareStatement(sql);
 			
-			String sql = "INSERT INTO role (role_id, description) VALUES (?,?)";
+			ps.setString(1, role.getDescription());
+			ps.setInt(2, role.getRoleId());
 			
+			updateCount = ps.executeUpdate();
+			// 실행하면 업데이트 횟수를 리턴스함
+			
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			//파이널리에 적어서, 뭐든지 무조건 닫아 버린다.
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return updateCount;
+	}
+
+	public int addRole(Role role) {
+		int insertCount = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			Class.forName(classpath);
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		String sql = "INSERT INTO role (role_id, description) VALUES (?,?)";
+		
+		
+		try {
+			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
 			ps = conn.prepareStatement(sql);
 			
 			ps.setInt(1, role.getRoleId());
 			ps.setString(2, role.getDescription());
-			
+		
 			insertCount = ps.executeUpdate();
+			// 실행하면 업데이트 횟수를 리턴스함
 			
 		} catch(Exception ex) {
 			ex.printStackTrace();
@@ -60,8 +112,53 @@ public class RoleDao {
 		
 		
 	}
-	
-	
+		
+	public int deleteRole(Role role) {
+		int deleteCount = 0;
+		Connection conn = null;
+		PreparedStatement ps = null;
+		
+		try {
+			Class.forName(classpath);
+		} catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}	
+		String sql = "DELETE FROM role WHERE role_id = ?";
+		
+		
+		try {
+			conn = DriverManager.getConnection(dburl,dbUser,dbpasswd);
+			ps = conn.prepareStatement(sql);
+			
+			ps.setInt(1, role.getRoleId());
+			
+			deleteCount = ps.executeUpdate();
+			// 실행하면 업데이트 횟수를 리턴스함
+			
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			//파이널리에 적어서, 뭐든지 무조건 닫아 버린다.
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(ps != null) {
+				try {
+					ps.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return deleteCount;
+		
+	}
 	
 	public Role getRole(Integer roleId) {
 		Role role = null;
@@ -71,7 +168,7 @@ public class RoleDao {
 		
 //		예외처리 시작
 		try {
-			Class.forName("org.mariadb.jdbc.Driver");		
+			Class.forName(classpath);		
 			conn = DriverManager.getConnection(dburl, dbUser, dbpasswd);
 			String sql = "SELECT role_id, description FROM role WHERE role_id = ?";
 //			prepareStatement 특징 물음표의 정체? : 이후 setInt와 동기화 되는데, 첫번째 ? 부터 숫자 태그가 붙는다.

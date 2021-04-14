@@ -8,6 +8,11 @@ public class Role {
 		
 	}
 	
+	public Role(Integer roleId) {
+		super();
+		this.roleId = roleId;
+	}
+	
 	public Role(Integer roleId, String description) {
 		super();
 		this.roleId = roleId;
