@@ -4,5 +4,11 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="userBean" class="kr.or.connect.diexam01.UserBean"/>
-	<!-- 스프링 프레임워크는 이러한 객체를 단 하나만 가지며, 이렇게 객체를 딱 하나 가지고 있는 것을 싱글턴 패턴이라고 한다. -->
+	<!-- 스프링 프레임워크는 이러한 객체를 단 하나만 가지며, 이렇게 객체(그리고 인스턴스)를 딱 하나 가지고 있는 것을 싱글턴 패턴이라고 한다. -->
+	<bean id="e" class="kr.or.connect.diexam01.Engine"/>
+	<bean id="c" class="kr.or.connect.diexam01.Car">
+		<property name = "engine" ref = "e"></property>
+		 <!-- ref에다가 id가 "e"로 선언된 인스턴스를 setEngine() 메서드에 파라미터로 전달해주세요. 이런 의미를 가집니다.
+		 이렇게 어떤 객체에게 객체를 주입하는 것을 DI라고 하고요. -->
+	</bean>
 </beans>
