@@ -4,14 +4,14 @@ import java.sql.Connection;
 
 import javax.sql.DataSource;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import kr.or.connect.daoexam.config.ApplicationConfig;
 
 public class DataSourceTest {
 	public static void main(String[] args) {
-		ApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		DataSource ds = ac.getBean(DataSource.class);
 		Connection conn = null;
 		try {
@@ -30,5 +30,6 @@ public class DataSourceTest {
 				}
 			}
 		}
+		ac.close();
 	}
 }

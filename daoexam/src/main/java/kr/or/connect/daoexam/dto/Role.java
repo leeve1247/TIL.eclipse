@@ -1,13 +1,13 @@
 package kr.or.connect.daoexam.dto;
 
 public class Role {
-	private int roldID;
+	private int roleId;
 	private String description;
-	public int getroldID() {
-		return roldID;
+	public int getroleId() {
+		return roleId;
 	}
-	public void setroldID(int roldID) {
-		this.roldID = roldID;
+	public void setroleId(int roleId) {
+		this.roleId = roleId;
 	}
 	public String getDescription() {
 		return description;
@@ -18,6 +18,6 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return "Role [roldID=" + roldID + ", description=" + description + "]";
+		return "Role [roleId=" + roleId + ", description=" + description + "]";
 	}
 }
