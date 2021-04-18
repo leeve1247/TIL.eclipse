@@ -12,6 +12,7 @@ import kr.or.connect.guestbook.dto.Log;
 
 @Repository
 public class LogDao {
+	@SuppressWarnings("unused")
 	private NamedParameterJdbcTemplate jdbc;
 	private SimpleJdbcInsert insertAction;
 	
