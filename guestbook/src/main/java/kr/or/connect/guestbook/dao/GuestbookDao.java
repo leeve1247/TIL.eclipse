@@ -30,6 +30,7 @@ public class GuestbookDao {
                 .withTableName("guestbook")
                 .usingGeneratedKeyColumns("id");
     }
+	//직전에 로그 dao가 들어있었다.
 
 	public List<Guestbook> selectAll(Integer start, Integer limit) {
 		Map<String, Integer> params = new HashMap<>();
