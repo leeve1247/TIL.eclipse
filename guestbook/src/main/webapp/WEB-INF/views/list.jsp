@@ -11,7 +11,9 @@
 
 	<h1>방명록</h1>
 	<br> 방명록 전체 수 : ${count }
+	<br>방문한 수 : ${cookieCount }
 	<br>
+	<input type="button" onclick="location='guess'">
 	<br>
 
 	<c:forEach items="${list}" var="guestbook">
@@ -33,6 +35,9 @@ ${guestbook.regdate }<br>
 		name : <input type="text" name="name"><br>
 		<textarea name="content" cols="60" rows="6"></textarea>
 		<br> <input type="submit" value="등록">
+	</form>
+	<form method="post" action="upload" enctype="multipart/form-data">
+		<input type="file" name="file"> <input type="submit">
 	</form>
 </body>
 </html>
